@@ -1,0 +1,30 @@
+#!/bin/bash
+
+CURRENT_USER=$(stat -f "%Su" /dev/console)
+USER_HOME=$(dscl . -read /Users/$CURRENT_USER NFSHomeDirectory | awk '{print $2}')
+
+echo "Installing for user: $CURRENT_USER"
+
+# Create python virtual environment in shared folder
+/usr/bin/python3 -m venv /Users/Shared/SpotifyAdSkipper_Mac/venv
+
+# Install dependencies from requirements.txt using venv's pip
+/Users/Shared/SpotifyAdSkipper_Mac/venv/bin/pip install --upgrade pip
+/Users/Shared/SpotifyAdSkipper_Mac/venv/bin/pip install -r /Users/Shared/SpotifyAdSkipper_Mac/requirements.txt
+
+# Ensure run script is executable
+chmod +x /Users/Shared/SpotifyAdSkipper_Mac/run_ad_skipper.sh
+
+# Ensure plist exists and is copied
+mkdir -p "$USER_HOME/Library/LaunchAgents"
+cp /Users/Shared/SpotifyAdSkipper_Mac/com.aadi.spotifyads.plist "$USER_HOME/Library/LaunchAgents/"
+chown "$CURRENT_USER":staff "$USER_HOME/Library/LaunchAgents/com.aadi.spotifyads.plist"
+chmod 644 "$USER_HOME/Library/LaunchAgents/com.aadi.spotifyads.plist"
+# Run the authentication script as the user so they get prompted to login interactively
+sudo -u $CURRENT_USER /Users/Shared/SpotifyAdSkipper_Mac/venv/bin/python /Users/Shared/SpotifyAdSkipper_Mac/auth_setup.py
+
+# Load and start LaunchAgent
+launchctl bootstrap gui/$(id -u "$CURRENT_USER") "$USER_HOME/Library/LaunchAgents/com.aadi.spotifyads.plist"
+launchctl kickstart -k gui/$(id -u "$CURRENT_USER") com.aadi.spotifyads
+
+exit 0
