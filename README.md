@@ -6,7 +6,7 @@ You are free to:
 Under the following terms:
 - Attribution — You must give appropriate credit, provide a link to the license, and indicate if changes were made.
 - NonCommercial — You may not use the material for commercial purposes.
-- NoDerivatives — If you remix, transform, or build upon the material, you may not distribute the modified material.
+- NoDerivatives — If you remix, transform, or build upon the material, you may not distribute the modified material without owner acknowledgement.
 
 No additional restrictions — You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.
 
