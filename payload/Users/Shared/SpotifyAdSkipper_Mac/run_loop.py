@@ -35,7 +35,15 @@ def main_loop():
         print("Spotify is open. Starting ad detection logic...")
 
         # Authenticate with Spotipy (do this after Spotify opens)
-        sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=SPOTIPY_CLIENT_ID, client_secret=SPOTIPY_CLIENT_SECRET, redirect_uri=SPOTIPY_REDIRECT_URI, scope=SCOPE))
+        CACHE_PATH = os.path.expanduser("~/.spotify_token_cache")
+
+        sp = spotipy.Spotify(auth_manager=SpotifyOAuth(
+        client_id=SPOTIPY_CLIENT_ID,
+        client_secret=SPOTIPY_CLIENT_SECRET,
+        redirect_uri=SPOTIPY_REDIRECT_URI,
+        scope=SCOPE,
+        cache_path=CACHE_PATH  # ✅ this saves and reuses your tokens
+        ))
 
         # While Spotify is running, run your ad detection
         while is_spotify_running():

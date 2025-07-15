@@ -4,8 +4,7 @@ from spotipy.oauth2 import SpotifyOAuth
 import spotipy
 import subprocess
 
-from dotenv import load_dotenv
-load_dotenv()
+
 
 SCOPE = "user-read-playback-state user-read-currently-playing"
 
