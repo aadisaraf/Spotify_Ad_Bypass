@@ -10,17 +10,10 @@ import os
 from dotenv import load_dotenv
 
 SPOTIPY_CLIENT_ID='569b06aa78e0429a8889f02319835662'
+SPOTIPY_CLIENT_SECRET='171f83472ee04cf09e1acb7977b4ac62'
 SPOTIPY_REDIRECT_URI='http://127.0.0.1:3000'
 SCOPE = "user-read-playback-state user-modify-playback-state"
-CACHE_PATH = os.path.expanduser("~/.spotify_token_cache")
 
-auth_manager = SpotifyPKCE(
-            client_id=SPOTIPY_CLIENT_ID,
-            redirect_uri=SPOTIPY_REDIRECT_URI,
-            scope=SCOPE,
-            cache_path=CACHE_PATH
-        )
-sp = spotipy.Spotify(auth_manager=auth_manager)
 
 def is_spotify_running():
     try:
@@ -42,8 +35,16 @@ def main_loop():
 
         print("Spotify is open. Starting ad detection logic...")
 
-        # Authenticate with Spotipy (do this after Spotify opens)
-       
+        #Authenticate with Spotify
+        auth_manager = SpotifyOAuth(
+            client_id=SPOTIPY_CLIENT_ID,
+            client_secret=SPOTIPY_CLIENT_SECRET,
+            redirect_uri=SPOTIPY_REDIRECT_URI,
+            scope=SCOPE,
+        )
+
+        sp = spotipy.Spotify(auth_manager=auth_manager)
+
 
         # While Spotify is running, run your ad detection
         while is_spotify_running():

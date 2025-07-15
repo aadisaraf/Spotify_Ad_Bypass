@@ -21,7 +21,7 @@ cp /Users/Shared/SpotifyAdSkipper_Mac/com.aadi.spotifyads.plist "$USER_HOME/Libr
 chown "$CURRENT_USER":staff "$USER_HOME/Library/LaunchAgents/com.aadi.spotifyads.plist"
 chmod 644 "$USER_HOME/Library/LaunchAgents/com.aadi.spotifyads.plist"
 # Run the authentication script as the user so they get prompted to login interactively
-sudo -u $CURRENT_USER /Users/Shared/SpotifyAdSkipper_Mac/venv/bin/python /Users/Shared/SpotifyAdSkipper_Mac/auth_setup.py
+# sudo -u $CURRENT_USER /Users/Shared/SpotifyAdSkipper_Mac/venv/bin/python /Users/Shared/SpotifyAdSkipper_Mac/auth_setup.py
 
 # Load and start LaunchAgent
 launchctl bootstrap gui/$(id -u "$CURRENT_USER") "$USER_HOME/Library/LaunchAgents/com.aadi.spotifyads.plist"
