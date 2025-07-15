@@ -14,7 +14,6 @@ SPOTIPY_CLIENT_SECRET='171f83472ee04cf09e1acb7977b4ac62'
 SPOTIPY_REDIRECT_URI='http://127.0.0.1:3000'
 SCOPE = "user-read-playback-state user-modify-playback-state"
 
-
 def is_spotify_running():
     try:
         subprocess.check_output(["pgrep", "-x", "Spotify"])
@@ -24,8 +23,8 @@ def is_spotify_running():
 
 def main_loop():
     print("starting main loop...")
-    # sp = None
-    
+    sp = None
+
     while True:  # Infinite loop to keep the script running forever
         print("Waiting for Spotify to open...")
         
@@ -35,16 +34,8 @@ def main_loop():
 
         print("Spotify is open. Starting ad detection logic...")
 
-        #Authenticate with Spotify
-        auth_manager = SpotifyOAuth(
-            client_id=SPOTIPY_CLIENT_ID,
-            client_secret=SPOTIPY_CLIENT_SECRET,
-            redirect_uri=SPOTIPY_REDIRECT_URI,
-            scope=SCOPE,
-        )
-
-        sp = spotipy.Spotify(auth_manager=auth_manager)
-
+        # Authenticate with Spotipy (do this after Spotify opens)
+        sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=SPOTIPY_CLIENT_ID, client_secret=SPOTIPY_CLIENT_SECRET, redirect_uri=SPOTIPY_REDIRECT_URI, scope=SCOPE))
 
         # While Spotify is running, run your ad detection
         while is_spotify_running():
