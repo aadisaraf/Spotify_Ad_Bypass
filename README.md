@@ -8,6 +8,8 @@ A lightweight background tool that skips Spotify ads in real time by using playb
 
 [**Download Latest Installer (.pkg)**](https://github.com/aadisaraf/Spotify_Ad_Bypass/releases/download/v1.0/SpotifyAdSkipper.pkg)
 
+File may not be able to open as the program is not from a major developer. To bypass this, press done (on the screen saying it is unable to open). Then open Privacy and Security. Scroll down, and click Open Anyways. This should open the file. If not, try clicking again.
+
 ---
 
 ## Disclaimer
